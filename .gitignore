@@ -1,6 +1,23 @@
+# Dependencies
 node_modules/
-.DS_Store
+vendor/
+
+# Environment files
 .env
-*.log
-.vscode/
+.env.*
+!.env.example
+
+# IDE files
 .idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build files
+/dist
+/build
+*.log
