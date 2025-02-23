@@ -1,0 +1,11 @@
+/* Custom styles can be added here */
+.container {
+    max-width: 1200px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+}

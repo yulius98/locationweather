@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Weather Dashboard</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        />
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body class="bg-gray-100 min-h-screen">
+        <div class="container mx-auto px-4 py-8">
+            <!-- Header -->
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold text-gray-800">
+                    Weather Dashboard
+                </h1>
+                <p class="text-gray-600">Real-time weather information</p>
+            </div>
+
+            <!-- Search Section -->
+            <div class="mb-8">
+                <div class="max-w-md mx-auto">
+                    <div class="relative">
+                        <input
+                            type="text"
+                            id="location-input"
+                            class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
+                            placeholder="Enter location..."
+                        />
+                        <button
+                            onclick="searchLocation()"
+                            class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-300"
+                        >
+                            <i class="fas fa-search mr-2"></i>Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weather Info Section -->
+            <div
+                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"
+            >
+                <!-- Current Weather -->
+                <div
+                    class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+                    id="current-weather-card"
+                >
+                    <h2 class="text-xl font-semibold mb-4" id="location-name">
+                        Loading...
+                    </h2>
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p
+                                class="text-4xl font-bold mb-2"
+                                id="current-temp"
+                            >
+                                --°C
+                            </p>
+                            <p
+                                class="text-gray-600 capitalize"
+                                id="weather-desc"
+                            >
+                                --
+                            </p>
+                        </div>
+                        <img
+                            id="weather-icon"
+                            src=""
+                            alt="Weather Icon"
+                            class="w-20 h-20 object-contain"
+                        />
+                    </div>
+                </div>
+
+                <!-- Humidity -->
+                <div
+                    class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+                    id="humidity-card"
+                >
+                    <h3 class="text-lg font-semibold mb-4">Humidity</h3>
+                    <div class="flex items-center">
+                        <i class="fas fa-tint text-blue-500 text-3xl mr-4"></i>
+                        <p class="text-3xl font-bold" id="humidity">--%</p>
+                    </div>
+                </div>
+
+                <!-- Wind Speed -->
+                <div
+                    class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+                    id="wind-card"
+                >
+                    <h3 class="text-lg font-semibold mb-4">Wind Speed</h3>
+                    <div class="flex items-center">
+                        <i class="fas fa-wind text-gray-500 text-3xl mr-4"></i>
+                        <p class="text-3xl font-bold" id="wind-speed">-- m/s</p>
+                    </div>
+                </div>
+
+                <!-- Pressure -->
+                <div
+                    class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+                    id="pressure-card"
+                >
+                    <h3 class="text-lg font-semibold mb-4">Pressure</h3>
+                    <div class="flex items-center">
+                        <i
+                            class="fas fa-compress-alt text-gray-500 text-3xl mr-4"
+                        ></i>
+                        <p class="text-3xl font-bold" id="pressure">-- hPa</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chart Section -->
+            <div
+                class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+            >
+                <h3 class="text-xl font-semibold mb-6">Temperature Forecast</h3>
+                <div class="w-full h-96">
+                    <canvas id="weatherChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <script src="config.js"></script>
+        <script src="app.js"></script>
+    </body>
+</html>
