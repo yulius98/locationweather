@@ -478,6 +478,21 @@ class Builder implements BuilderContract
     }
 
     /**
+     * Find a sole model by its primary key.
+     *
+     * @param  mixed  $id
+     * @param  array|string  $columns
+     * @return TModel
+     *
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException<TModel>
+     * @throws \Illuminate\Database\MultipleRecordsFoundException
+     */
+    public function findSole($id, $columns = ['*'])
+    {
+        return $this->whereKey($id)->sole($columns);
+    }
+
+    /**
      * Find multiple models by their primary keys.
      *
      * @param  \Illuminate\Contracts\Support\Arrayable|array  $ids
@@ -1013,10 +1028,7 @@ class Builder implements BuilderContract
 
         $total = value($total) ?? $this->toBase()->getCountForPagination();
 
-        $perPage = ($perPage instanceof Closure
-            ? $perPage($total)
-            : $perPage
-        ) ?: $this->model->getPerPage();
+        $perPage = value($perPage, $total) ?: $this->model->getPerPage();
 
         $results = $total
             ? $this->forPage($page, $perPage)->get($columns)
@@ -1941,6 +1953,26 @@ class Builder implements BuilderContract
     public function withoutEagerLoads()
     {
         return $this->setEagerLoads([]);
+    }
+
+    /**
+     * Get the "limit" value from the query or null if it's not set.
+     *
+     * @return mixed
+     */
+    public function getLimit()
+    {
+        return $this->query->getLimit();
+    }
+
+    /**
+     * Get the "offset" value from the query or null if it's not set.
+     *
+     * @return mixed
+     */
+    public function getOffset()
+    {
+        return $this->query->getOffset();
     }
 
     /**
